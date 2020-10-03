@@ -1,12 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+    <BrowserRouter basename={baseUrl}>
+      <App />
+    </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
