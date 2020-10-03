@@ -93,7 +93,7 @@ class Bugs extends Component {
 
     var me = this;
 
-    fetch('http://acnhapi.com/v1a/bugs')
+    fetch('https://acnhapi.com/v1a/bugs')
     .then(
         function(response) {
         if (response.status !== 200) {

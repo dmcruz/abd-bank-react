@@ -93,7 +93,7 @@ class Fishes extends Component {
 
     var me = this;
 
-    fetch('http://acnhapi.com/v1a/fish')
+    fetch('https://acnhapi.com/v1a/fish')
     .then(
         function(response) {
         if (response.status !== 200) {
