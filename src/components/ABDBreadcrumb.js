@@ -11,8 +11,8 @@ export class ABDBreadcrumb extends Component {
         return (
             <Breadcrumb style={{ margin: '25px 10px' }}>
                 <Breadcrumb.Item><HomeOutlined/> Home</Breadcrumb.Item>
-                <Breadcrumb.Item>Payments</Breadcrumb.Item>
-                <Breadcrumb.Item>Details</Breadcrumb.Item>
+                <Breadcrumb.Item>Explore Island</Breadcrumb.Item>
+                <Breadcrumb.Item>Critters</Breadcrumb.Item>
             </Breadcrumb>
         );
     }

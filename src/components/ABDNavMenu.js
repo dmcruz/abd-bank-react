@@ -3,30 +3,36 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
-
+const { SubMenu } = Menu;
 
 class ABDNavMenu extends Component {
-    render() {
-        let linkIsland;
+    getExploreTitle() {
         if (this.props.islandName && this.props.islandName !== '') {
-            linkIsland = <Link to="/explore">Explore {this.props.islandName}</Link>
+            return "Explore " + this.props.islandName;
         } else {
-            linkIsland = <Link to="/explore">Explore Island</Link>
+            return "Explore Island";
         }
+    }
+
+    render() {
         return (
             <Menu mode="horizontal" style={{ height: '100%', margin: '16px 24px 16px 0'}}>
                 <Menu.Item key="home" icon={<HomeOutlined />}>
                     <Link to="/">Home</Link>
                 </Menu.Item>
-                <Menu.Item key="explore">
-                    {linkIsland}
-                </Menu.Item>
-                <Menu.Item key="antd">
-                    <Link to="/antd">Automated Bell Dispenser (ABD)</Link>
-                </Menu.Item>
+                <SubMenu key="explore" title={this.getExploreTitle()}>
+                    <Menu.ItemGroup title="Critters">
+                    <Menu.Item key="fish">
+                        <Link to="/explore/fishes">Fishes</Link>
+                    </Menu.Item>
+                    <Menu.Item key="bugs">
+                    <Link to="/explore/bugs">Bugs</Link>
+                    </Menu.Item>
+                    </Menu.ItemGroup>
+                </SubMenu>
 
-                <Menu.Item key="inventory">
-                    <Link to="/inventory">Inventory</Link>
+                <Menu.Item key="abd">
+                    <Link to="/bank">Automated Bell Dispenser (ABD)</Link>
                 </Menu.Item>
 
                 <Menu.Item key="store">
