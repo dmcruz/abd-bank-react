@@ -17,7 +17,7 @@ class Home extends Component {
   render () {
     return (
       <div>
-        <h1>Hello, Islander!</h1>
+        <h1>Hello, {this.props.name && this.props.name.trim() !== '' ? this.props.name : "Islander"}!</h1>
         <p>Welcome to your island.</p>
         <Avatar src="./images/av_timtom.png" size={100} shape="square" />
         <p>Hello! We're so excited to have you here! <small>...have you here!</small></p>
