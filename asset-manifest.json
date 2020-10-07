@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/abd-bank-react/static/css/main.2a4c550e.chunk.css",
-    "main.js": "/abd-bank-react/static/js/main.1673f152.chunk.js",
-    "main.js.map": "/abd-bank-react/static/js/main.1673f152.chunk.js.map",
+    "main.js": "/abd-bank-react/static/js/main.46b7b17e.chunk.js",
+    "main.js.map": "/abd-bank-react/static/js/main.46b7b17e.chunk.js.map",
     "runtime-main.js": "/abd-bank-react/static/js/runtime-main.0ba52988.js",
     "runtime-main.js.map": "/abd-bank-react/static/js/runtime-main.0ba52988.js.map",
-    "static/css/2.de45f884.chunk.css": "/abd-bank-react/static/css/2.de45f884.chunk.css",
+    "static/css/2.fa7e1263.chunk.css": "/abd-bank-react/static/css/2.fa7e1263.chunk.css",
     "static/js/2.3d8232b4.chunk.js": "/abd-bank-react/static/js/2.3d8232b4.chunk.js",
     "static/js/2.3d8232b4.chunk.js.map": "/abd-bank-react/static/js/2.3d8232b4.chunk.js.map",
     "index.html": "/abd-bank-react/index.html",
-    "precache-manifest.975672d5a9c943d796dabc2cfefa00da.js": "/abd-bank-react/precache-manifest.975672d5a9c943d796dabc2cfefa00da.js",
+    "precache-manifest.a7dab1aa973377b41662ef8c0f5408ed.js": "/abd-bank-react/precache-manifest.a7dab1aa973377b41662ef8c0f5408ed.js",
     "service-worker.js": "/abd-bank-react/service-worker.js",
-    "static/css/2.de45f884.chunk.css.map": "/abd-bank-react/static/css/2.de45f884.chunk.css.map",
+    "static/css/2.fa7e1263.chunk.css.map": "/abd-bank-react/static/css/2.fa7e1263.chunk.css.map",
     "static/css/main.2a4c550e.chunk.css.map": "/abd-bank-react/static/css/main.2a4c550e.chunk.css.map",
     "static/js/2.3d8232b4.chunk.js.LICENSE.txt": "/abd-bank-react/static/js/2.3d8232b4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.0ba52988.js",
-    "static/css/2.de45f884.chunk.css",
+    "static/css/2.fa7e1263.chunk.css",
     "static/js/2.3d8232b4.chunk.js",
     "static/css/main.2a4c550e.chunk.css",
-    "static/js/main.1673f152.chunk.js"
+    "static/js/main.46b7b17e.chunk.js"
   ]
 }
