@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { sellItem } from '../redux/user/user.action';
 
-import { Button, Card, Avatar, Row, Col, Space } from 'antd';
+import { Button, Card, Avatar, Image, Row, Col, Space } from 'antd';
 
 class Cranny extends Component {
 
@@ -68,7 +68,7 @@ class Cranny extends Component {
                         <Col span={6}>
                             {x.item.price}
                         </Col>
-                        <Col span={6}><Avatar src={x.item.imageUri} /></Col>
+                        <Col span={6}><Image src={x.item.imageUri} width={80} /></Col>
                         <Col span={6}>
                             <Button key={x.index} onClick={() => this.onSellItem(x)}>Sell</Button>
                         </Col>

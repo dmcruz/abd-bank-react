@@ -31,13 +31,14 @@ class ABDNavMenu extends Component {
                     </Menu.ItemGroup>
                 </SubMenu>
 
+                <Menu.Item key="store">
+                    <Link to="/store">Nook's Cranny (Store)</Link>
+                </Menu.Item>
+
                 <Menu.Item key="abd">
                     <Link to="/bank">Automated Bell Dispenser (ABD)</Link>
                 </Menu.Item>
 
-                <Menu.Item key="store">
-                    <Link to="/store">Store</Link>
-                </Menu.Item>
             </Menu>
         );
     }

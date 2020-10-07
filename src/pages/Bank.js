@@ -46,9 +46,9 @@ class Home extends Component {
 
         <Space>
             <Button size="large" onClick={this.onClear }>Clear</Button>
-            <Button type="secondary" size="large" onClick={this.onFullAmount}>Full Amount</Button>
             <Button type="primary" size="large" onClick={this.onWithdraw}>Withdraw</Button>
             <Button type="primary" size="large" onClick={this.onDeposit}>Deposit</Button>
+            <Button type="secondary" size="large" onClick={this.onFullAmount} disabled={this.props.pocketBells === 0}>Full Amount</Button>
         </Space>
       </div>
     );
