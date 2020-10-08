@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addItemToBag } from '../../redux/user/user.action';
-import { message, Button, Alert, Row, Col, Image, Pagination} from 'antd';
+import { message, Button, Alert, Row, Col, Image, Pagination, Card} from 'antd';
 
 class Critters extends Component {
 
@@ -28,6 +28,13 @@ class Critters extends Component {
   renderList(critters) {
       return (
         <div style={{margin: 'auto', width: '95%'}}>
+            <Row justify="center" gutter={[16, 16]} >
+                <Col>
+                    <Card title="Items in my Bag">
+                        <h1>{this.props.itemCount} / {this.props.maxItems}</h1>
+                    </Card>
+                </Col>
+            </Row>
             <Row gutter={16} justify="start" style={{ textAlign: 'center', fontWeight: 'bold'}}>
                 <Col span={10} style={{ textAlign: 'left'}}>
                     Name
@@ -148,7 +155,9 @@ class Critters extends Component {
 
 
 const mapStateToProps = state => ({
-    inventory: state.user.inventory
+    inventory: state.user.inventory,
+    maxItems: state.user.maxItems,
+    itemCount: state.user.itemCount()
   });
 
 export default connect(mapStateToProps, {addItemToBag})(Critters);

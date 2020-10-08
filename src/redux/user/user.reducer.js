@@ -6,7 +6,10 @@ const INITIAL_STATE = {
     islandName: "Amanpulo",
     pocketBells: 0,
     maxItems: 10,
-    inventory: []
+    inventory: [],
+    itemCount() {
+        return this.inventory.length;
+    }
 }
 
 const userReducer = (state = INITIAL_STATE, action) => {
