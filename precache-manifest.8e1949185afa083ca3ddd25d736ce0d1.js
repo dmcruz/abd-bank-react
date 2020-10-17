@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "038047890cb9eee793c5a209d1eaf118",
+    "revision": "777b90e0b9f96434fe083f8cf52c45fb",
     "url": "/abd-bank-react/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/abd-bank-react/static/css/2.fa7e1263.chunk.css"
   },
   {
-    "revision": "8d88ddfa644459c6e949",
+    "revision": "8ae30fbcfe5dd62e3b9c",
     "url": "/abd-bank-react/static/css/main.2a4c550e.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/abd-bank-react/static/js/2.3d8232b4.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8d88ddfa644459c6e949",
-    "url": "/abd-bank-react/static/js/main.46b7b17e.chunk.js"
+    "revision": "8ae30fbcfe5dd62e3b9c",
+    "url": "/abd-bank-react/static/js/main.94850a9d.chunk.js"
   },
   {
     "revision": "0b882d36ca6ef73ac7be",
