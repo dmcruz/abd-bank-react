@@ -44,47 +44,36 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 pocketBells: (state.pocketBells - action.payload < 0 ? 0 : state.pocketBells - action.payload)
             }
-        case 'ADD_INVENTORY':
-            var x = state.inventory;
-
-            if (x.length < state.maxItems) {
-
-                var i = x.length;
-                var obj = { index: i, item: action.payload};
-                x.push(obj);
-                console.log('obj ' + JSON.stringify(obj));
-                return {
-                    ...state,
-                    inventory: x
-                }
-            }
-            return state;
         case 'REMOVE_ITEM':
-            var activeInventory = state.inventory;
+            const activeInventory = state.inventory;
             if (activeInventory.length > 0) {
-                var foundIndex = activeInventory.findIndex(f=>f.item.id === action.payload.item.id);
+                var foundIndex = activeInventory.findIndex(f=>f.id === action.payload.id);
                 activeInventory.splice(foundIndex, 1);
                 return {
                     ...state,
                     inventory: activeInventory
                 }
+            } else {
+                return {
+                    ...state,
+                    errorMessage: 'Item not found!'
+                }
             }
-            return state;
         case 'SELL_ITEM':
-            var activeInventory = state.inventory;
-            if (activeInventory.length > 0) {
-                var foundIndex = activeInventory.findIndex(f=>f.item.id === action.payload.item.id);
-                activeInventory.splice(foundIndex, 1);
+            // var activeInventory = state.inventory;
+            // if (activeInventory.length > 0) {
+            //     var foundIndex = activeInventory.findIndex(f=>f.item.id === action.payload.item.id);
+            //     activeInventory.splice(foundIndex, 1);
 
-                state.pocketBells += action.payload.item.price;
-                var pocketBells = state.pocketBells;
+            //     state.pocketBells += action.payload.item.price;
+            //     var pocketBells = state.pocketBells;
 
-                return {
-                    ...state,
-                    pocketBells: pocketBells,
-                    inventory: activeInventory
-                }
-            }
+            //     return {
+            //         ...state,
+            //         pocketBells: pocketBells,
+            //         inventory: activeInventory
+            //     }
+            // }
             return state;
         case 'ADD_ITEM_TO_BAG_START':
             return {
@@ -95,7 +84,9 @@ const userReducer = (state = INITIAL_STATE, action) => {
             }
         case 'ADD_ITEM_TO_BAG_SUCCESS':
             const inventoryCopy = state.inventory;
-            inventoryCopy.push(action.payload);
+            const itemCopy = action.payload; 
+            itemCopy.id += `-${inventoryCopy.length + 1}`; // make id unique
+            inventoryCopy.push(itemCopy);
             return {
                 ...state,
                 isError: false,
@@ -119,6 +110,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 itemOnHand: null,
+                errorMessage: `Sold ${action.payload.name}`
             }
         case 'SELL_ITEM_FAIL':
             return {

@@ -22,11 +22,6 @@ export const takeOutBells = bells => ({
     payload: bells
 });
 
-export const addItemToBag = (item) =>({
-    type: 'ADD_INVENTORY',
-    payload: item
-})
-
 export const sellItem = (index, item) =>({
     type: 'SELL_ITEM',
     index: index,
@@ -53,11 +48,17 @@ export const sellItemStart = (itemOnHand) => ({
     payload: itemOnHand
 })
 
-export const sellItemSuccess = () => ({
+export const sellItemSuccess = (itemOnHand) => ({
     type: 'SELL_ITEM_SUCCESS',
+    payload: itemOnHand
 })
 
 export const sellItemFail = (errorMessage) => ({
     type: 'SELL_ITEM_FAIL',
     payload: errorMessage
+})
+
+export const removeItem = (itemOnHand) => ({
+    type: 'REMOVE_ITEM',
+    payload: itemOnHand
 })

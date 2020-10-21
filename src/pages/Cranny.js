@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { sellItem } from '../redux/user/user.action';
+import { sellItem, sellItemStart } from '../redux/user/user.action';
 
 import { Button, Card, Avatar, Image, Row, Col, Space } from 'antd';
 
@@ -60,17 +60,17 @@ class Cranny extends Component {
             </Row>
 
             {
-                this.props.inventory.map(x => 
-                    <Row justify="left" key={x.index}>
+                this.props.inventory.map(item => 
+                    <Row justify="left" key={item.id}>
                         <Col span={6}>
-                            {x.item.name}
+                            {item.name}
                         </Col>
                         <Col span={6}>
-                            {x.item.price}
+                            {item.price}
                         </Col>
-                        <Col span={6}><Image src={x.item.imageUri} width={80} /></Col>
+                        <Col span={6}><Image src={item.imageUri} width={80} /></Col>
                         <Col span={6}>
-                            <Button key={x.index} onClick={() => this.onSellItem(x)}>Sell</Button>
+                            <Button key={item.id} onClick={() => this.onSellItem(item)}>Sell</Button>
                         </Col>
                     </Row>
                 )
@@ -80,7 +80,7 @@ class Cranny extends Component {
   }
 
   onSellItem(item) {
-    this.props.sellItem(item.index, item);
+    this.props.sellItemStart(item);
   }
 }
 const mapStateToProps = state => ({
@@ -90,4 +90,4 @@ const mapStateToProps = state => ({
   inventory: state.user.inventory
 });
 
-export default connect(mapStateToProps, {sellItem})(Cranny);
+export default connect(mapStateToProps, { sellItem, sellItemStart })(Cranny);

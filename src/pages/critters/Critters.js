@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addItemToBag, addItemToBagStart } from '../../redux/user/user.action';
-import { message, Button, Alert, Row, Col, Image, Pagination, Card} from 'antd';
+import { addItemToBagStart } from '../../redux/user/user.action';
+import { Button, Alert, Row, Col, Image, Pagination, Card } from 'antd';
 
 class Critters extends Component {
 
@@ -105,7 +105,7 @@ class Critters extends Component {
     this.props.addItemToBagStart(obj);
     
   }
-  
+
   render () {
       let errorAlert=<span/>;
       if (this.state.error && this.state.error !== '') {
@@ -163,4 +163,4 @@ const mapStateToProps = state => ({
     isError: state.user.isError
   });
 
-export default connect(mapStateToProps, {addItemToBag, addItemToBagStart})(Critters);
+export default connect(mapStateToProps, { addItemToBagStart })(Critters);
