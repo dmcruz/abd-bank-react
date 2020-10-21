@@ -32,3 +32,32 @@ export const sellItem = (index, item) =>({
     index: index,
     payload: item
 })
+
+export const addItemToBagStart = (itemOnHand) => ({
+    type: 'ADD_ITEM_TO_BAG_START',
+    payload: itemOnHand
+})
+
+export const addItemToBagSuccess = (itemOnHand) => ({
+    type: 'ADD_ITEM_TO_BAG_SUCCESS',
+    payload: itemOnHand
+})
+
+export const addItemToBagFail = (errorMessage) => ({
+    type: 'ADD_ITEM_TO_BAG_FAIL',
+    payload: errorMessage
+})
+
+export const sellItemStart = (itemOnHand) => ({
+    type: 'SELL_ITEM_START',
+    payload: itemOnHand
+})
+
+export const sellItemSuccess = () => ({
+    type: 'SELL_ITEM_SUCCESS',
+})
+
+export const sellItemFail = (errorMessage) => ({
+    type: 'SELL_ITEM_FAIL',
+    payload: errorMessage
+})

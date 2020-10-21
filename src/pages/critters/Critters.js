@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addItemToBag } from '../../redux/user/user.action';
+import { addItemToBag, addItemToBagStart } from '../../redux/user/user.action';
 import { message, Button, Alert, Row, Col, Image, Pagination, Card} from 'antd';
 
 class Critters extends Component {
@@ -101,11 +101,11 @@ class Critters extends Component {
         price: item.price,
         imageUri: item["image_uri"]
     };
-    this.props.addItemToBag(obj);
-
-    message.success("Added " + obj.name + "!");
+    //this.props.addItemToBag(obj);
+    this.props.addItemToBagStart(obj);
+    
   }
-
+  
   render () {
       let errorAlert=<span/>;
       if (this.state.error && this.state.error !== '') {
@@ -116,6 +116,7 @@ class Critters extends Component {
     ? <p><em>Loading...</em></p>
     : this.renderList(this.paginate(this.state.critters));
       
+
     return (
       <div align="center">
             {errorAlert}
@@ -157,7 +158,9 @@ class Critters extends Component {
 const mapStateToProps = state => ({
     inventory: state.user.inventory,
     maxItems: state.user.maxItems,
-    itemCount: state.user.itemCount()
+    itemCount: state.user.itemCount(),
+    errorMessage: state.user.errorMessage,
+    isError: state.user.isError
   });
 
-export default connect(mapStateToProps, {addItemToBag})(Critters);
+export default connect(mapStateToProps, {addItemToBag, addItemToBagStart})(Critters);
