@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withdrawBells, depositBells } from '../redux/bank/bank.action';
-
-import { stashBells, takeOutBells } from '../redux/user/user.action';
+import { withdrawalRequest, depositRequest } from '../redux/bank/bank.action';
 
 import { Input, Button, Card, Space, Row, Col } from 'antd';
 
@@ -61,17 +59,11 @@ class Home extends Component {
   }
 
   onWithdraw() {
-    if (this.props.bells - this.state.amount >=0) {
-        this.props.withdrawBells(this.state.amount);
-        this.props.stashBells(this.state.amount);
-    }
+    this.props.withdrawalRequest(this.state.amount);
   }
 
   onDeposit() {
-      if (this.state.amount <= this.props.pocketBells) {
-        this.props.takeOutBells(this.state.amount);
-        this.props.depositBells(this.state.amount);
-      }
+    this.props.depositRequest(this.state.amount);
   }
 
   onAmountChange(e) {
@@ -83,4 +75,4 @@ const mapStateToProps = state => ({
   pocketBells: state.user.pocketBells
 });
 
-export default connect(mapStateToProps, {withdrawBells, depositBells, stashBells, takeOutBells})(Home);
+export default connect(mapStateToProps, { withdrawalRequest, depositRequest })(Home);

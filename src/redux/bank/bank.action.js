@@ -17,7 +17,7 @@ export const withdrawalRequest = bellsRequested => ({
 });
 
 export const withdrawalSuccess = () => ({
-    type: 'WITHDRAWAL_SUCCESS',
+    type: 'WITHDRAWAL_SUCCESS'
 });
 
 export const withdrawalFail = errorMessage => ({

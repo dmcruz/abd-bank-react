@@ -1,17 +1,13 @@
 import { takeLatest, put, select, delay } from 'redux-saga/effects';
 import { stashBells, removeItem,
-    addItemToBagStart, addItemToBagSuccess, addItemToBagFail,addItemToBag,
-    sellItemStart, sellItemSuccess, sellItemFail } from './user.action';
-import { withdrawalRequest, withdrawalSuccess, withdrawalFail,
-    depositRequest, depositSuccess, depositFail } from '../bank/bank.action';
+    addItemToBagSuccess, addItemToBagFail,
+    sellItemSuccess, sellItemFail } from './user.action';
 import { message } from 'antd';
 
 const getItemOnHand = (state) => state.user.itemOnHand;
 const getInventoryCount = (state) => state.user.inventory.length;
-const getInventory = (state) => state.user.inventory;
 const getUserMaxItems = (state) => state.user.maxItems;
 const getErrorMessage = (state) => state.user.errorMessage;
-const getPocketBells = (state) => state.user.pocketBells;
 const getIsError = (state) => state.user.isError;
 
 function* addItemToBagAsync() {
@@ -37,6 +33,9 @@ function* sellItemAsync() {
         yield put(removeItem(itemOnHand));
         if (yield select(getIsError)) {
             yield message.error(yield select(getErrorMessage));
+        } else {
+            yield put(sellItemSuccess(itemOnHand));
+            yield message.success(yield select(getErrorMessage));
         }
 
     } else {

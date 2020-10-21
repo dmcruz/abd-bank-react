@@ -48,9 +48,9 @@ export const sellItemStart = (itemOnHand) => ({
     payload: itemOnHand
 })
 
-export const sellItemSuccess = (itemOnHand) => ({
+export const sellItemSuccess = (itemSold) => ({
     type: 'SELL_ITEM_SUCCESS',
-    payload: itemOnHand
+    payload: itemSold
 })
 
 export const sellItemFail = (errorMessage) => ({

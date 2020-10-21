@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { sellItem, sellItemStart } from '../redux/user/user.action';
+import { sellItemStart } from '../redux/user/user.action';
 
 import { Button, Card, Avatar, Image, Row, Col, Space } from 'antd';
 
@@ -90,4 +90,4 @@ const mapStateToProps = state => ({
   inventory: state.user.inventory
 });
 
-export default connect(mapStateToProps, { sellItem, sellItemStart })(Cranny);
+export default connect(mapStateToProps, { sellItemStart })(Cranny);

@@ -59,22 +59,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
                     errorMessage: 'Item not found!'
                 }
             }
-        case 'SELL_ITEM':
-            // var activeInventory = state.inventory;
-            // if (activeInventory.length > 0) {
-            //     var foundIndex = activeInventory.findIndex(f=>f.item.id === action.payload.item.id);
-            //     activeInventory.splice(foundIndex, 1);
-
-            //     state.pocketBells += action.payload.item.price;
-            //     var pocketBells = state.pocketBells;
-
-            //     return {
-            //         ...state,
-            //         pocketBells: pocketBells,
-            //         inventory: activeInventory
-            //     }
-            // }
-            return state;
         case 'ADD_ITEM_TO_BAG_START':
             return {
                 ...state,
