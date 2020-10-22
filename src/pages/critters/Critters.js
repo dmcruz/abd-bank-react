@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addItemToBagStart } from '../../redux/user/user.action';
-import { Button, Alert, Row, Col, Image, Pagination, Card } from 'antd';
+import { fetchCrittersRequest, setCritterCurrentPage } from '../../redux/critters/critter.action';
+import { Button, Row, Col, Image, Pagination, Card } from 'antd';
 
 class Critters extends Component {
 
   constructor() {
     super();
     this.state = {
-        error: null,
-        critters: [],
-        loading: true,
-        currentPage: 0,
         defaultPageSize: 5,
-        pageSize: 5,
-        totalRecords: 0   
+        pageSize: 5,   
     }
     this.onShowSizeChange = this.onShowSizeChange.bind(this);
     this.onPageChange = this.onPageChange.bind(this);
@@ -26,16 +22,20 @@ class Critters extends Component {
   }
 
   renderList(critters) {
-      return (
-        <div style={{margin: 'auto', width: '95%'}}>
-            <Row justify="center" gutter={[16, 16]} >
-                <Col>
-                    <Card title="Items in my Bag">
-                        <h1>{this.props.itemCount} / {this.props.maxItems}</h1>
-                    </Card>
-                </Col>
-            </Row>
-            <Row gutter={16} justify="start" style={{ textAlign: 'center', fontWeight: 'bold'}}>
+      let pagination;
+      let header;
+      if (critters && critters.length > 0) {
+        pagination = (
+          <Pagination showQuickJumper defaultCurrent={this.props.currentPage} 
+            defaultPageSize={this.state.defaultPageSize} 
+            pageSize={this.state.pageSize}
+            total={this.props.totalRecords} 
+            onShowSizeChange={this.onShowSizeChange}
+            onChange={this.onPageChange}
+            />
+        );
+        header = (
+          <Row gutter={16} justify="start" style={{ textAlign: 'center', fontWeight: 'bold'}}>
                 <Col span={10} style={{ textAlign: 'left'}}>
                     Name
                 </Col>
@@ -49,7 +49,19 @@ class Critters extends Component {
                     Action
                 </Col>
             </Row>
-
+        )
+      }
+      return (
+        <div style={{margin: 'auto', width: '95%'}}>
+            <Row justify="center" gutter={[16, 16]} >
+                <Col>
+                    <Card title="Items in my Bag">
+                        <h1>{this.props.itemCount} / {this.props.maxItems}</h1>
+                    </Card>
+                </Col>
+            </Row>
+            
+            {header}
             {critters.map(critter =>
                 <Row gutter={16} justify="start" style={{ textAlign: 'center', padding: '25px 0', backgroundColor: critter.id % 2 !== 0 ? '#eee' : 'transparent'}} key={critter.id}>
                     <Col span={10} style={{ textAlign: 'left' }}>
@@ -68,29 +80,24 @@ class Critters extends Component {
             )
             }
 
-            <Pagination showQuickJumper defaultCurrent={this.state.currentPage} 
-                defaultPageSize={this.state.defaultPageSize} 
-                pageSize={this.state.pageSize}
-                total={this.state.totalRecords} 
-                onShowSizeChange={this.onShowSizeChange}
-                onChange={this.onPageChange}
-                />
+            {pagination}
         </div>
       );
   }
 
   onShowSizeChange(current, pageSize) {
     this.setState({pageSize: pageSize});
-    this.paginate(this.state.critters);
+    this.paginate(this.props.critters);
   }
 
   onPageChange(page, pageSize) {
-    this.setState({currentPage: page, pageSize: pageSize});
-    this.paginate(this.state.critters);
+    this.setState({pageSize: pageSize});
+    this.props.setCritterCurrentPage(page);
+    this.paginate(this.props.critters);
   }
 
   paginate(array) {
-    return array.slice((this.state.currentPage - 1) * this.state.pageSize, this.state.currentPage * this.state.pageSize);
+    return array.slice((this.props.currentPage - 1) * this.state.pageSize, this.props.currentPage * this.state.pageSize);
   }
 
   onAdd(item) {
@@ -106,50 +113,20 @@ class Critters extends Component {
   }
 
   render () {
-      let errorAlert=<span/>;
-      if (this.state.error && this.state.error !== '') {
-          errorAlert = <Alert type="error">this.state.error</Alert>
-      }
-
-    let contents = this.state.loading
+    let contents = this.props.loading
     ? <p><em>Loading...</em></p>
-    : this.renderList(this.paginate(this.state.critters));
+    : this.renderList(this.paginate(this.props.critters));
       
 
     return (
       <div align="center">
-            {errorAlert}
             {contents}
       </div>
     );
   }
   
   loadCritters() {
-    var me = this;
-
-    fetch(this.props.apiUrl)
-    .then(
-        function(response) {
-        if (response.status !== 200) {
-
-            me.setState({ error: 'Something went wrong. Status code: ' + response.status});
-            console.log('Looks like there was a problem. Status Code: ' +
-            response.status);
-            return;
-        }
-
-        response.json().then(function(data) {
-            me.setState({ critters: data, loading: false, 
-                error: null, 
-                currentPage: data && data.length > 0 ? 1 : 0, 
-                totalRecords: data.length});
-        });
-        }
-    )
-    .catch(function(err) {
-        console.log('Fetch Error :-S', err);
-        me.setState({ error: 'Fetch error'});
-    });
+    this.props.fetchCrittersRequest(this.props.apiUrl);
   }
 }
 
@@ -159,7 +136,13 @@ const mapStateToProps = state => ({
     maxItems: state.user.maxItems,
     itemCount: state.user.itemCount(),
     errorMessage: state.user.errorMessage,
-    isError: state.user.isError
+    isError: state.user.isError,
+    isCritterError: state.critters.isError,
+    critterErrMessage: state.critters.message,
+    critters: state.critters.critters,
+    currentPage: state.critters.currentPage,
+    totalRecords: state.critters.totalRecords,
+    loading: state.critters.loading,
   });
 
-export default connect(mapStateToProps, { addItemToBagStart })(Critters);
+export default connect(mapStateToProps, { addItemToBagStart, setCritterCurrentPage, fetchCrittersRequest })(Critters);
