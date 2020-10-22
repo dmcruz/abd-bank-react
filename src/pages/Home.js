@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setName, setBirthDate, setIslandName } from '../redux/user/user.action';
 
-import { Avatar, Input, Form } from 'antd';
+import { Avatar, Input, Form, Row, Col } from 'antd';
 import { DatePicker } from '../components/antd-pickers';
 
 class Home extends Component {
@@ -25,13 +25,20 @@ class Home extends Component {
         <p>Welcome...to the check-in counter for your Deserted Island Getaway Package!</p>
         
         <p>Can we get your name and birthday? <small>...birthday?</small></p>
-        <Form.Item label="Name" width={200}><Input value={this.props.name} onChange={this.onNameChange} /></Form.Item>
-        <Form.Item label="Birthday"><DatePicker value={this.props.birthDate} onChange={this.onBirthdateChange} /></Form.Item>
-
+        <Row>
+          <Col><Form.Item label="Name"><Input value={this.props.name} onChange={this.onNameChange} /></Form.Item></Col>
+        </Row>
+        <Row>
+          <Col><Form.Item label="Birthday"><DatePicker value={this.props.birthDate} onChange={this.onBirthdateChange} /></Form.Item></Col>
+        </Row>
         <Avatar src="./images/av_tom.png" shape="circle" size={100} />
         <p>Welcome to your island! My name is Tom Nook, and I'm the founder and president of Nook Inc. Yes, yes!</p>
         <p>What should we call your island?</p>
-        <Form.Item label="Name of Island"><Input value={this.props.islandName} onChange={this.onIslandNameChange} /></Form.Item>
+        <Row>
+          <Col>
+            <Form.Item label="Name of Island"><Input value={this.props.islandName} onChange={this.onIslandNameChange} /></Form.Item>
+          </Col>
+        </Row>
 
       </div>
     );

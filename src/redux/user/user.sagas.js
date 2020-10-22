@@ -1,7 +1,8 @@
-import { takeLatest, put, select, delay } from 'redux-saga/effects';
-import { stashBells, removeItem,
+import { takeLatest, put, select } from 'redux-saga/effects';
+import { stashBells, takeOutBells, removeItem,
     addItemToBagSuccess, addItemToBagFail,
-    sellItemSuccess, sellItemFail } from './user.action';
+    sellItemSuccess, sellItemFail,
+    buyItemSuccess, buyItemFail } from './user.action';
 import { message } from 'antd';
 
 const getItemOnHand = (state) => state.user.itemOnHand;
@@ -9,6 +10,7 @@ const getInventoryCount = (state) => state.user.inventory.length;
 const getUserMaxItems = (state) => state.user.maxItems;
 const getErrorMessage = (state) => state.user.errorMessage;
 const getIsError = (state) => state.user.isError;
+const getPocketBells = (state) => state.user.pocketBells;
 
 function* addItemToBagAsync() {
     const itemOnHand = yield select(getItemOnHand);
@@ -45,10 +47,38 @@ function* sellItemAsync() {
     }
 }
 
+function* buyItemAsync() {
+    const itemOnHand = yield select(getItemOnHand);
+    const inventoryCount = yield select(getInventoryCount);
+    const userMaxItems = yield select(getUserMaxItems);
+    const pocketBells = yield select(getPocketBells);
+
+    if (inventoryCount < userMaxItems){
+        if (pocketBells - itemOnHand.price >= 0) {
+            yield put(takeOutBells(itemOnHand.price));
+            yield put(addItemToBagSuccess(itemOnHand)); 
+            yield put(buyItemSuccess(itemOnHand));
+            yield message.success(yield select(getErrorMessage));
+        } else {
+            yield put(buyItemFail('Not enough bells!'));
+            yield message.error(yield select(getErrorMessage));
+        }
+    } else {
+        yield put(buyItemFail('Not enough space'));
+        yield message.error(yield select(getErrorMessage));
+
+    }
+}
+
 export function* onWatchAddItemToBagStart() {
     yield takeLatest('ADD_ITEM_TO_BAG_START', addItemToBagAsync);
 }
 
 export function* onWatchSellItemStart() {
-    yield takeLatest('SELL_ITEM_START', sellItemAsync);
+    yield takeLatest('SELL_ITEM_REQUEST', sellItemAsync);
+}
+
+
+export function* onWatchBuyItemStart() {
+    yield takeLatest('BUY_ITEM_REQUEST', buyItemAsync);
 }

@@ -1,5 +1,5 @@
 import { all, call } from 'redux-saga/effects';
-import { onWatchAddItemToBagStart, onWatchSellItemStart } from './user/user.sagas';
+import { onWatchAddItemToBagStart, onWatchSellItemStart, onWatchBuyItemStart } from './user/user.sagas';
 import { onWatchWithdraw, onWatchDeposit } from './bank/bank.sagas';
 
 export default function* rootSaga() {
@@ -7,6 +7,7 @@ export default function* rootSaga() {
         call(onWatchAddItemToBagStart),
         call(onWatchSellItemStart),
         call(onWatchWithdraw),
-        call(onWatchDeposit)
+        call(onWatchDeposit),
+        call(onWatchBuyItemStart)
     ])
 }

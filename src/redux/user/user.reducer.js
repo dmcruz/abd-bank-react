@@ -1,4 +1,3 @@
-import { Cascader } from 'antd';
 import dayjs from 'dayjs';
 
 const INITIAL_STATE = {
@@ -84,7 +83,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 isError: true,
                 errorMessage: action.payload
             }
-        case 'SELL_ITEM_START':
+        case 'SELL_ITEM_REQUEST':
             return {
                 ...state,
                 errorMessage: '',
@@ -97,6 +96,23 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 errorMessage: `Sold ${action.payload.name}`
             }
         case 'SELL_ITEM_FAIL':
+            return {
+                ...state,
+                errorMessage: action.payload
+            }
+        case 'BUY_ITEM_REQUEST':
+            return {
+                ...state,
+                errorMessage: '',
+                itemOnHand: action.payload,
+            }
+        case 'BUY_ITEM_SUCCESS':
+            return {
+                ...state,
+                itemOnHand: null,
+                errorMessage: `Bought ${action.payload.name}`
+            }
+        case 'BUY_ITEM_FAIL':
             return {
                 ...state,
                 errorMessage: action.payload

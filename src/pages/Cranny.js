@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { sellItemStart } from '../redux/user/user.action';
+import { sellItemRequest, buyItemRequest } from '../redux/user/user.action';
 
-import { Button, Card, Avatar, Image, Row, Col, Space } from 'antd';
+import { Button, Card, Avatar, Image, Row, Col, Space, Divider, Pagination } from 'antd';
 
 class Cranny extends Component {
 
   constructor() {
     super();
     this.state = {
-        amount: 0
+        amount: 0,
+        error: null,
+        wares: [],
+        loading: true,
+        currentPage: 0,
+        defaultPageSize: 5,
+        pageSize: 5,
+        totalRecords: 0   
     }
+    this.onShowSizeChange = this.onShowSizeChange.bind(this);
+    this.onPageChange = this.onPageChange.bind(this);
+    this.onBuy = this.onBuy.bind(this);
   }
 
   getUserName() {
@@ -22,11 +32,20 @@ class Cranny extends Component {
       }
       
   }
+
+  componentDidMount() {
+    this.loadWares();
+  }
+
   render () {
       let inventoryControl = this.props.inventory.length > 0 ?
         this.renderInventory() :
         <br />;
 
+    let waresForSale = this.state.loading
+    ? <p><em>Loading...</em></p>
+    : this.renderList(this.paginate(this.state.wares));
+    
     return (
       <div align="center">
 
@@ -45,6 +64,9 @@ class Cranny extends Component {
 
         {inventoryControl}
 
+        <Divider dashed />
+
+        {waresForSale}
       </div>
     );
   }
@@ -79,10 +101,131 @@ class Cranny extends Component {
       );
   }
 
+  
+  loadWares() {
+    var me = this;
+    const itemsToReturn = 20;
+
+    fetch('http://acnhapi.com/v1a/houseware/')
+    .then(
+        function(response) {
+        if (response.status !== 200) {
+
+            me.setState({ error: 'Something went wrong. Status code: ' + response.status});
+            console.log('Looks like there was a problem. Status Code: ' +
+            response.status);
+            return;
+        }
+
+        response.json().then(function(data) {
+
+            var randomItems = me.getRandom(data, itemsToReturn);
+
+            me.setState({ wares: randomItems, loading: false, 
+                error: null, 
+                currentPage: data && itemsToReturn > 0 ? 1 : 0, 
+                totalRecords: itemsToReturn});
+        });
+        }
+    )
+    .catch(function(err) {
+        console.log('Fetch Error :-S', err);
+        me.setState({ error: 'Fetch error'});
+    });
+  }
+
+  renderList(wares) {
+    return (
+    <div style={{margin: 'auto', width: '95%'}}>
+        <Row gutter={16} justify="start" style={{ textAlign: 'center', fontWeight: 'bold'}}>
+            <Col span={10} style={{ textAlign: 'left'}}>
+                Name
+            </Col>
+            <Col span={4}>
+                Buy Price
+            </Col>
+            <Col span={6}>
+                Image
+            </Col>
+            <Col span={2}>
+                Action
+            </Col>
+        </Row>
+
+        {wares.map(ware =>
+            <Row gutter={16} justify="start" style={{ textAlign: 'center', padding: '25px 0', backgroundColor: ware[0].id % 2 !== 0 ? '#eee' : 'transparent'}} 
+            key={ware[0]['internal-id']}>
+                <Col span={10} style={{ textAlign: 'left' }}>
+                    { ware[0].name["name-USen"] }
+                </Col>
+                <Col span={4}>
+                    {!!ware[0]["buy-price"] ? ware[0]["buy-price"] : 999999}
+                </Col>
+                <Col span={6}>
+                    <Image src={ware[0]["image_uri"]} width={80} />
+                </Col>
+                <Col span={2}>
+                    <Button type="primary" value="1" onClick={()=> this.onBuy(ware[0])}>Buy</Button>
+                </Col>
+            </Row>
+        )
+        }
+
+        <Pagination showQuickJumper defaultCurrent={this.state.currentPage} 
+            defaultPageSize={this.state.defaultPageSize} 
+            pageSize={this.state.pageSize}
+            total={this.state.totalRecords} 
+            onShowSizeChange={this.onShowSizeChange}
+            onChange={this.onPageChange}
+            />
+    </div>
+  );
+}
+
+onBuy(item) {
+  const itemOnHand = {
+    id: item.id,
+    name: item.name["name-USen"],
+    price: !!item["buy-price"] ? item["buy-price"] : 999999,
+    imageUri: item["image_uri"]
+  };
+
+  this.props.buyItemRequest(itemOnHand);
+}
+
+  onShowSizeChange(current, pageSize) {
+    this.setState({pageSize: pageSize});
+    this.paginate(this.state.wares);
+  }
+
+  onPageChange(page, pageSize) {
+    this.setState({currentPage: page, pageSize: pageSize});
+    this.paginate(this.state.wares);
+  }
+
+  paginate(array) {
+    return array.slice((this.state.currentPage - 1) * this.state.pageSize, this.state.currentPage * this.state.pageSize);
+  }
+
   onSellItem(item) {
-    this.props.sellItemStart(item);
+      this.props.sellItemRequest(item);
+  }
+
+  getRandom(arr, n) {
+    var result = new Array(n),
+        len = arr.length,
+        taken = new Array(len);
+    if (n > len)
+        throw new RangeError("getRandom: more elements taken than available");
+    while (n--) {
+        var x = Math.floor(Math.random() * len);
+        result[n] = arr[x in taken ? taken[x] : x];
+        taken[x] = --len in taken ? taken[len] : len;
+    }
+    return result;
   }
 }
+
 const mapStateToProps = state => ({
   bells: state.bank.bells,
   pocketBells: state.user.pocketBells,
@@ -90,4 +233,4 @@ const mapStateToProps = state => ({
   inventory: state.user.inventory
 });
 
-export default connect(mapStateToProps, { sellItemStart })(Cranny);
+export default connect(mapStateToProps, { sellItemRequest, buyItemRequest })(Cranny);
