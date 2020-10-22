@@ -14,6 +14,7 @@ import {
   Pagination,
 } from "antd"
 import { sellItemRequest, buyItemRequest } from "../redux/user/user.action"
+import { getRandomStuff } from '../utils/Util';
 
 class Cranny extends Component {
   constructor() {
@@ -94,7 +95,7 @@ class Cranny extends Component {
         {this.props.inventory.map((item) => (
           <Row justify="left" key={item.id}>
             <Col span={6}>{item.name}</Col>
-            <Col span={6}>{item.price}</Col>
+            <Col span={6}>{item.sellPrice}</Col>
             <Col span={6}>
               <Image src={item.imageUri} width={80} />
             </Col>
@@ -110,13 +111,13 @@ class Cranny extends Component {
   }
 
   loadWares() {
-    const me = this
+    const self = this
     const itemsToReturn = 20
 
     fetch("http://acnhapi.com/v1a/houseware/")
       .then(function (response) {
         if (response.status !== 200) {
-          me.setState({
+          self.setState({
             error: `Something went wrong. Status code: ${response.status}`,
           })
           console.log(
@@ -126,9 +127,9 @@ class Cranny extends Component {
         }
 
         response.json().then(function (data) {
-          const randomItems = me.getRandom(data, itemsToReturn)
+          const randomItems = getRandomStuff(data, itemsToReturn)
 
-          me.setState({
+          self.setState({
             wares: randomItems,
             loading: false,
             error: null,
@@ -139,7 +140,7 @@ class Cranny extends Component {
       })
       .catch(function (err) {
         console.log("Fetch Error :-S", err)
-        me.setState({ error: "Fetch error" })
+        self.setState({ error: "Fetch error" })
       })
   }
 
@@ -210,7 +211,8 @@ class Cranny extends Component {
     const itemOnHand = {
       id: item.id,
       name: item.name["name-USen"],
-      price: item["buy-price"] ? item["buy-price"] : 999999,
+      buyPrice: item["buy-price"] ? item["buy-price"] : 999999,
+      sellPrice: item["sell-price"] ? item["sell-price"] : 999999,
       imageUri: item.image_uri,
     }
 
@@ -236,20 +238,6 @@ class Cranny extends Component {
 
   onSellItem(item) {
     this.props.sellItemRequest(item)
-  }
-
-  getRandom(arr, n) {
-    const result = new Array(n)
-    let len = arr.length
-    const taken = new Array(len)
-    if (n > len)
-      throw new RangeError("getRandom: more elements taken than available")
-    while (n--) {
-      const x = Math.floor(Math.random() * len)
-      result[n] = arr[x in taken ? taken[x] : x]
-      taken[x] = --len in taken ? taken[len] : len
-    }
-    return result;
   }
 }
 

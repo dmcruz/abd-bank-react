@@ -105,7 +105,8 @@ class Critters extends Component {
     var obj = {
         id: this.props.type + "-" + item.id,
         name: item.name["name-USen"],
-        price: item.price,
+        buyPrice: item.price,
+        sellPrice: item.price,
         imageUri: item["image_uri"]
     };
     this.props.addItemToBagStart(obj);

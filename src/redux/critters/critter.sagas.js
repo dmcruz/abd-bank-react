@@ -4,6 +4,7 @@ import {
   fetchCrittersSuccess,
   fetchCrittersFail,
 } from "./critter.action"
+import { getRandomStuff } from '../../utils/Util';
 
 const getApiUrl = (state) => state.critters.apiUrl
 const getCritterMessage = (state) => state.critters.message;
@@ -14,7 +15,8 @@ function* fetchCrittersRequestAsync() {
   const apiResponse = yield fetch(apiUrl);
   if (apiResponse.ok) {
         const data = yield apiResponse.json();
-        yield put(fetchCrittersSuccess(data));
+        const randomizedData = yield getRandomStuff(data, 20);
+        yield put(fetchCrittersSuccess(randomizedData));
     } else {
         yield put(fetchCrittersFail("Error...error..."));
         yield message.error(yield select(getCritterMessage));

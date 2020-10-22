@@ -38,7 +38,7 @@ function* sellItemAsync() {
   const itemCount = yield select(getInventoryCount)
 
   if (itemCount > 0) {
-    yield put(stashBells(itemOnHand.price))
+    yield put(stashBells(itemOnHand.sellPrice))
     yield put(removeItem(itemOnHand))
     if (yield select(getIsError)) {
       yield message.error(yield select(getErrorMessage))
@@ -59,8 +59,10 @@ function* buyItemAsync() {
   const pocketBells = yield select(getPocketBells)
 
   if (inventoryCount < userMaxItems) {
-    if (pocketBells - itemOnHand.price >= 0) {
-      yield put(takeOutBells(itemOnHand.price))
+    yield console.log(`pocket ${pocketBells} buyPrice ${itemOnHand.buyPrice}`);
+    
+    if (pocketBells - itemOnHand.buyPrice >= 0) {
+      yield put(takeOutBells(itemOnHand.buyPrice))
       yield put(addItemToBagSuccess(itemOnHand))
       yield put(buyItemSuccess(itemOnHand))
 
