@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/abd-bank-react/precache-manifest.8d7f9b18a4afa74d7c041153dadf74ec.js"
+  "/abd-bank-react/precache-manifest.83e9668c130901dfeaf631e159231b91.js"
 );
 
 self.addEventListener('message', (event) => {
