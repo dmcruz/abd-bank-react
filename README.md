@@ -1,3 +1,5 @@
+This #NotAGame web application is inspired from Animal Crossing New Horizons. Catch, sell, buy, deposit, withdraw.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
