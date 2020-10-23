@@ -46,7 +46,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         case 'REMOVE_ITEM':
             const activeInventory = state.inventory;
             if (activeInventory.length > 0) {
-                var foundIndex = activeInventory.findIndex(f=>f.id === action.payload.id);
+                var foundIndex = activeInventory.findIndex(f=>f.inventoryId === action.payload.inventoryId);
                 activeInventory.splice(foundIndex, 1);
                 return {
                     ...state,
@@ -68,7 +68,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         case 'ADD_ITEM_TO_BAG_SUCCESS':
             const inventoryCopy = state.inventory;
             const itemCopy = action.payload; 
-            itemCopy.id += `-${inventoryCopy.length + 1}`; // make id unique
+            itemCopy.inventoryId = `${itemCopy.id}-${inventoryCopy.length + 1}`; // assign inventory id
             inventoryCopy.push(itemCopy);
             return {
                 ...state,

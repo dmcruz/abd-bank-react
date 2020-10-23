@@ -17,3 +17,13 @@ export const setCritterCurrentPage = (currentPage) => ({
   type: "SET_CRITTER_CURRENTPAGE",
   payload: currentPage,
 })
+
+export const removeCritter = (critter) => ({
+  type: "REMOVE_CRITTER",
+  payload: critter,
+})
+
+export const setCritterType = (type) => ({
+  type: "SET_CRITTER_TYPE",
+  payload: type,
+})

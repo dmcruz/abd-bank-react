@@ -11,6 +11,7 @@ import {
   buyItemSuccess,
   buyItemFail,
 } from "./user.action"
+import { removeCritter, fetchCrittersSuccess } from '../critters/critter.action';
 
 const getItemOnHand = (state) => state.user.itemOnHand
 const getInventoryCount = (state) => state.user.inventory.length
@@ -18,6 +19,7 @@ const getUserMaxItems = (state) => state.user.maxItems
 const getErrorMessage = (state) => state.user.errorMessage
 const getIsError = (state) => state.user.isError
 const getPocketBells = (state) => state.user.pocketBells
+const getCritters = (state) => state.critters.critters;
 
 function* addItemToBagAsync() {
   const itemOnHand = yield select(getItemOnHand)
@@ -25,6 +27,8 @@ function* addItemToBagAsync() {
   const userMaxItems = yield select(getUserMaxItems)
 
   if (itemCount < userMaxItems) {
+    yield put(removeCritter(itemOnHand))
+    yield put(fetchCrittersSuccess(yield select(getCritters)))
     yield put(addItemToBagSuccess(itemOnHand))
     yield message.success(yield select(getErrorMessage))
   } else {
@@ -60,7 +64,7 @@ function* buyItemAsync() {
 
   if (inventoryCount < userMaxItems) {
     yield console.log(`pocket ${pocketBells} buyPrice ${itemOnHand.buyPrice}`);
-    
+
     if (pocketBells - itemOnHand.buyPrice >= 0) {
       yield put(takeOutBells(itemOnHand.buyPrice))
       yield put(addItemToBagSuccess(itemOnHand))

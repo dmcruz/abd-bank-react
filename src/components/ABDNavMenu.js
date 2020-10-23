@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
+import { HomeOutlined, ShopOutlined, BugOutlined, BankOutlined } from '@ant-design/icons';
 const { SubMenu } = Menu;
 
 class ABDNavMenu extends Component {
@@ -20,7 +20,7 @@ class ABDNavMenu extends Component {
                 <Menu.Item key="home" icon={<HomeOutlined />}>
                     <Link to="/">Home</Link>
                 </Menu.Item>
-                <SubMenu key="explore" title={this.getExploreTitle()}>
+                <SubMenu key="explore" title={this.getExploreTitle()} icon={<BugOutlined />}>
                     <Menu.ItemGroup title="Critters">
                     <Menu.Item key="fish">
                         <Link to="/explore/fishes">Fishes</Link>
@@ -31,11 +31,11 @@ class ABDNavMenu extends Component {
                     </Menu.ItemGroup>
                 </SubMenu>
 
-                <Menu.Item key="store">
+                <Menu.Item key="store" icon={<ShopOutlined />}>
                     <Link to="/store">Nook's Cranny (Store)</Link>
                 </Menu.Item>
 
-                <Menu.Item key="abd">
+                <Menu.Item key="abd" icon={<BankOutlined />}>
                     <Link to="/bank">Automated Bell Dispenser (ABD)</Link>
                 </Menu.Item>
 

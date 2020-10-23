@@ -6,7 +6,7 @@ class Fishes extends Component {
   render () {
       
     return (
-      <Critters type="fish" apiUrl="https://acnhapi.com/v1a/fish" />
+      <Critters type="fish" apiUrl="/api/v1a/fish" />
     );
   }
 }

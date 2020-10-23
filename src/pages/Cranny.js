@@ -114,7 +114,7 @@ class Cranny extends Component {
     const self = this
     const itemsToReturn = 20
 
-    fetch("http://acnhapi.com/v1a/houseware/")
+    fetch("/api/v1a/houseware/")
       .then(function (response) {
         if (response.status !== 200) {
           self.setState({
@@ -162,14 +162,14 @@ class Cranny extends Component {
           <Col span={2}>Action</Col>
         </Row>
 
-        {wares.map((ware) => (
+        {wares.map((ware, index) => (
           <Row
             gutter={16}
             justify="start"
             style={{
               textAlign: "center",
               padding: "25px 0",
-              backgroundColor: ware[0].id % 2 !== 0 ? "#eee" : "transparent",
+              backgroundColor: index % 2 !== 0 ? "#transparent" : "#eee",
             }}
             key={ware[0]["internal-id"]}
           >
@@ -209,7 +209,7 @@ class Cranny extends Component {
 
   onBuy(item) {
     const itemOnHand = {
-      id: item.id,
+      id: item["internal-id"],
       name: item.name["name-USen"],
       buyPrice: item["buy-price"] ? item["buy-price"] : 999999,
       sellPrice: item["sell-price"] ? item["sell-price"] : 999999,

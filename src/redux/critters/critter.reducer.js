@@ -1,4 +1,5 @@
 const INITIAL_STATE = {
+  critterType: '',
   critters: [],
   loading: false,
   isError: false,
@@ -10,6 +11,28 @@ const INITIAL_STATE = {
 
 const critterReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case "SET_CRITTER_TYPE":
+      return {
+        ...state,
+        critterType: action.payload,
+      }
+    case 'REMOVE_CRITTER':
+      const crittersCopy = state.critters;
+      if (crittersCopy.length > 0) {
+          var foundIndex = crittersCopy.findIndex(f=> `${state.critterType}-${f.id}` === action.payload.id);
+          crittersCopy.splice(foundIndex, 1);
+          return {
+              ...state,
+              isError: false,
+              critters: crittersCopy
+          }
+      } else {
+          return {
+              ...state,
+              isError: true,
+              message: 'Item not found!'
+          }
+      }
     case "FETCH_CRITTERS_REQUEST":
       return {
         ...state,

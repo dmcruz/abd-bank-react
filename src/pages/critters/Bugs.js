@@ -6,7 +6,7 @@ class Bugs extends Component {
   render () {
       
     return (
-      <Critters type="bug" apiUrl="https://acnhapi.com/v1a/bugs" />
+      <Critters type="bug" apiUrl="/api/v1a/bugs" />
     );
   }
 }

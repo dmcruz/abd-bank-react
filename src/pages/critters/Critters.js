@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addItemToBagStart } from '../../redux/user/user.action';
-import { fetchCrittersRequest, setCritterCurrentPage } from '../../redux/critters/critter.action';
+import { fetchCrittersRequest, setCritterCurrentPage, setCritterType } from '../../redux/critters/critter.action';
 import { Button, Row, Col, Image, Pagination, Card } from 'antd';
 
 class Critters extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
         defaultPageSize: 5,
-        pageSize: 5,   
+        pageSize: 5,
     }
     this.onShowSizeChange = this.onShowSizeChange.bind(this);
     this.onPageChange = this.onPageChange.bind(this);
+    this.props.setCritterType(props.type);
   }
 
   componentDidMount() {
@@ -62,8 +63,8 @@ class Critters extends Component {
             </Row>
             
             {header}
-            {critters.map(critter =>
-                <Row gutter={16} justify="start" style={{ textAlign: 'center', padding: '25px 0', backgroundColor: critter.id % 2 !== 0 ? '#eee' : 'transparent'}} key={critter.id}>
+            {critters.map((critter, index) =>
+                <Row gutter={16} justify="start" style={{ textAlign: 'center', padding: '25px 0', backgroundColor: index % 2 !== 0 ? 'transparent' : '#eee'}} key={critter.id}>
                     <Col span={10} style={{ textAlign: 'left' }}>
                         {critter.name["name-USen"]}
                     </Col>
@@ -146,4 +147,4 @@ const mapStateToProps = state => ({
     loading: state.critters.loading,
   });
 
-export default connect(mapStateToProps, { addItemToBagStart, setCritterCurrentPage, fetchCrittersRequest })(Critters);
+export default connect(mapStateToProps, { addItemToBagStart, setCritterCurrentPage, fetchCrittersRequest, setCritterType })(Critters);
