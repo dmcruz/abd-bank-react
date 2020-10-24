@@ -117,6 +117,12 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 errorMessage: action.payload
             }
+        case 'CLEAR_USER_ERROR':
+            return {
+                ...state,
+                errorMessage: '',
+                isError: false,
+            }
         default:
             return state;
 

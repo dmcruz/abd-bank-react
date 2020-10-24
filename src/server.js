@@ -1,3 +1,5 @@
+// data from acnhapi.com
+// mock api
 import { Server } from 'miragejs';
 export function makeServer() {
   let server = new Server({

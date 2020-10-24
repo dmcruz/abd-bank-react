@@ -10,6 +10,7 @@ import {
   sellItemFail,
   buyItemSuccess,
   buyItemFail,
+  clearUserError,
 } from "./user.action"
 import { removeCritter, fetchCrittersSuccess } from '../critters/critter.action';
 
@@ -41,11 +42,13 @@ function* sellItemAsync() {
   const itemOnHand = yield select(getItemOnHand)
   const itemCount = yield select(getInventoryCount)
 
+  yield put(clearUserError());
   if (itemCount > 0) {
     yield put(stashBells(itemOnHand.sellPrice))
     yield put(removeItem(itemOnHand))
+    const errMsg = yield select(getErrorMessage)
     if (yield select(getIsError)) {
-      yield message.error(yield select(getErrorMessage))
+      yield message.error(errMsg)
     } else {
       yield put(sellItemSuccess(itemOnHand))
       yield message.success(yield select(getErrorMessage))
@@ -62,6 +65,7 @@ function* buyItemAsync() {
   const userMaxItems = yield select(getUserMaxItems)
   const pocketBells = yield select(getPocketBells)
 
+  yield put(clearUserError());
   if (inventoryCount < userMaxItems) {
     yield console.log(`pocket ${pocketBells} buyPrice ${itemOnHand.buyPrice}`);
 

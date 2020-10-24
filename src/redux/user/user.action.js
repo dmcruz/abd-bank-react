@@ -77,3 +77,7 @@ export const buyItemFail = (errorMessage) => ({
     type: 'BUY_ITEM_FAIL',
     payload: errorMessage
 })
+
+export const clearUserError = () => ({
+    type: 'CLEAR_USER_ERROR'
+})
