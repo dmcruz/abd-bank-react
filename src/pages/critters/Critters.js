@@ -108,7 +108,8 @@ class Critters extends Component {
         name: item.name["name-USen"],
         buyPrice: item.price,
         sellPrice: item.price,
-        imageUri: item["image_uri"]
+        imageUri: item["image_uri"],
+        catchPhrase: item["catch-phrase"]
     };
     this.props.addItemToBagStart(obj);
     
