@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/abd-bank-react/static/css/main.2a4c550e.chunk.css",
-    "main.js": "/abd-bank-react/static/js/main.f03e9081.chunk.js",
-    "main.js.map": "/abd-bank-react/static/js/main.f03e9081.chunk.js.map",
+    "main.css": "/abd-bank-react/static/css/main.167c600d.chunk.css",
+    "main.js": "/abd-bank-react/static/js/main.d9f89fff.chunk.js",
+    "main.js.map": "/abd-bank-react/static/js/main.d9f89fff.chunk.js.map",
     "runtime-main.js": "/abd-bank-react/static/js/runtime-main.0ba52988.js",
     "runtime-main.js.map": "/abd-bank-react/static/js/runtime-main.0ba52988.js.map",
-    "static/css/2.fa7e1263.chunk.css": "/abd-bank-react/static/css/2.fa7e1263.chunk.css",
-    "static/js/2.38bd93bc.chunk.js": "/abd-bank-react/static/js/2.38bd93bc.chunk.js",
-    "static/js/2.38bd93bc.chunk.js.map": "/abd-bank-react/static/js/2.38bd93bc.chunk.js.map",
+    "static/css/2.bd5d765c.chunk.css": "/abd-bank-react/static/css/2.bd5d765c.chunk.css",
+    "static/js/2.5940f7b2.chunk.js": "/abd-bank-react/static/js/2.5940f7b2.chunk.js",
+    "static/js/2.5940f7b2.chunk.js.map": "/abd-bank-react/static/js/2.5940f7b2.chunk.js.map",
     "index.html": "/abd-bank-react/index.html",
-    "precache-manifest.6eeb080db43197e916baff31cd4593e5.js": "/abd-bank-react/precache-manifest.6eeb080db43197e916baff31cd4593e5.js",
+    "precache-manifest.1deacc4de9abde5582e3396b1668334b.js": "/abd-bank-react/precache-manifest.1deacc4de9abde5582e3396b1668334b.js",
     "service-worker.js": "/abd-bank-react/service-worker.js",
-    "static/css/2.fa7e1263.chunk.css.map": "/abd-bank-react/static/css/2.fa7e1263.chunk.css.map",
-    "static/css/main.2a4c550e.chunk.css.map": "/abd-bank-react/static/css/main.2a4c550e.chunk.css.map",
-    "static/js/2.38bd93bc.chunk.js.LICENSE.txt": "/abd-bank-react/static/js/2.38bd93bc.chunk.js.LICENSE.txt"
+    "static/css/2.bd5d765c.chunk.css.map": "/abd-bank-react/static/css/2.bd5d765c.chunk.css.map",
+    "static/css/main.167c600d.chunk.css.map": "/abd-bank-react/static/css/main.167c600d.chunk.css.map",
+    "static/js/2.5940f7b2.chunk.js.LICENSE.txt": "/abd-bank-react/static/js/2.5940f7b2.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.0ba52988.js",
-    "static/css/2.fa7e1263.chunk.css",
-    "static/js/2.38bd93bc.chunk.js",
-    "static/css/main.2a4c550e.chunk.css",
-    "static/js/main.f03e9081.chunk.js"
+    "static/css/2.bd5d765c.chunk.css",
+    "static/js/2.5940f7b2.chunk.js",
+    "static/css/main.167c600d.chunk.css",
+    "static/js/main.d9f89fff.chunk.js"
   ]
 }
